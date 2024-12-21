@@ -16,6 +16,9 @@ const Header: React.FC = () => {
               <Link to="/profile" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Profile</Link>
               <Link to="/settings" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Settings</Link>
               <Link to="/school" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">School</Link>
+              {user.role === 'admin' && (
+                <Link to="/admin" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Admin</Link>
+              )}
               <button 
                 onClick={signOut} 
                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-300 ease-in-out"

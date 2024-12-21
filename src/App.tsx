@@ -8,10 +8,13 @@ import Homepage from './components/Homepage';
 import Profile from './components/Profile';
 import Settings from './components/Settings';
 import School from './components/School';
+import AdminDashboard from './components/AdminDashboard';
 
-const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+const PrivateRoute = ({ children, requiredRole }: { children: React.ReactNode, requiredRole?: string }) => {
   const { user } = useAuth();
-  return user ? <>{children}</> : <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/login" replace />;
+  if (requiredRole && user.role !== requiredRole) return <Navigate to="/" replace />;
+  return <>{children}</>;
 };
 
 const App: React.FC = () => {
@@ -28,6 +31,7 @@ const App: React.FC = () => {
               <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
               <Route path="/settings" element={<PrivateRoute><Settings /></PrivateRoute>} />
               <Route path="/school" element={<PrivateRoute><School /></PrivateRoute>} />
+              <Route path="/admin" element={<PrivateRoute requiredRole="admin"><AdminDashboard /></PrivateRoute>} />
             </Routes>
           </main>
         </div>

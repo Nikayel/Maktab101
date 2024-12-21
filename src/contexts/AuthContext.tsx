@@ -1,8 +1,9 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://sqghnwxxxfckqsjffndg.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNxZ2hud3h4eGZja3FzamZmbmRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQ2Mzc3OTEsImV4cCI6MjA1MDIxMzc5MX0.uwlQUncVGtWGgka_O5XIFr7rsSkEVG4EnKoEfbCjy-A';
+const supabaseUrl = process.env.REACT_APP_SUPABASE_URL!;
+const supabaseAnonKey = process.env.REACT_APP_SUPABASE_ANON_KEY!;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 type AuthContextType = {
   user: User | null;
@@ -23,7 +24,6 @@ export const useAuth = () => {
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [supabase] = useState<SupabaseClient>(() => createClient(supabaseUrl, supabaseAnonKey));
 
   useEffect(() => {
     const session = supabase.auth.session();
@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => {
       authListener?.unsubscribe();
     };
-  }, [supabase.auth]);
+  }, []);
 
   const signUp = async (email: string, password: string, fullName: string, role: string) => {
     const { user, error } = await supabase.auth.signUp({ 
