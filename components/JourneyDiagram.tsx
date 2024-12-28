@@ -15,7 +15,7 @@ export const JourneyDiagram: React.FC = () => {
     <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-4">
       {steps.map((step, index) => (
         <React.Fragment key={index}>
-          <motion.div
+          <motion.section
             className="flex flex-col items-center text-center w-full md:w-1/4"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -26,7 +26,7 @@ export const JourneyDiagram: React.FC = () => {
             </div>
             <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
             <p className="text-sm">{step.description}</p>
-          </motion.div>
+          </motion.section>
           {index < steps.length - 1 && (
             <motion.div
               className="hidden md:block w-full h-1 bg-black"

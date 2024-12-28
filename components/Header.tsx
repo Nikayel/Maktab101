@@ -14,6 +14,7 @@ const translations = {
     login: 'Login',
     signup: 'Sign Up',
     dashboard: 'Dashboard',
+    profile: 'Profile',
   },
   dari: {
     home: 'خانه',
@@ -23,6 +24,7 @@ const translations = {
     login: 'ورود',
     signup: 'ثبت نام',
     dashboard: 'داشبورد',
+    profile: 'پروفیل',
   },
   pashto: {
     home: 'کور',
@@ -32,6 +34,7 @@ const translations = {
     login: 'ننوتل',
     signup: 'نوم لیکنه',
     dashboard: 'ډاشبورډ',
+    profile: 'پروفیل',
   },
 }
 
@@ -49,10 +52,16 @@ export function Header() {
           <ul className="flex space-x-6">
             <li><Link href="/" className={styles.navLink}>{translations[language].home}</Link></li>
             <li><Link href="/courses" className={styles.navLink}>{translations[language].courses}</Link></li>
-            {user && (
+            {user ? (
               <>
+                <li><Link href="/profile" className={styles.navLink}>{translations[language].profile}</Link></li>
                 <li><Link href="/mentorship" className={styles.navLink}>{translations[language].mentorship}</Link></li>
                 <li><Link href="/community" className={styles.navLink}>{translations[language].community}</Link></li>
+              </>
+            ) : (
+              <>
+                {/* <li><Link href="/login" className={styles.navLink}>{translations[language].login}</Link></li>
+                <li><Link href="/signup" className={styles.navLink}>{translations[language].signup}</Link></li> */}
               </>
             )}
           </ul>

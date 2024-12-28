@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Header } from '../../components/Header'
-import { useAuth } from '../../lib/auth'
+import { useAuth, withAuth } from '../../lib/auth'
 import { CommunityService } from '../../lib/communityService'
 import { Community } from '../../lib/types'
 
-export default function Dashboard() {
+const Dashboard = () => {
   const router = useRouter()
   const { user } = useAuth()
   const [communities, setCommunities] = useState<Community[]>([])
@@ -102,4 +102,6 @@ export default function Dashboard() {
     </div>
   )
 }
+
+export default withAuth(Dashboard)
 

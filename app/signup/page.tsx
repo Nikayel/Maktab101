@@ -14,10 +14,13 @@ export default function SignUp() {
 
   const handleStudentSignup = async (email: string, password: string) => {
     try {
-      await signup(email, password, 'student')
+      const result = await signup(email, password, 'student')
+      if (result.error) {
+        throw result.error
+      }
       router.push('/dashboard')
-    } catch (error) {
-      console.error('Student signup failed:', error)
+    } catch (error: any) {
+      console.error('Student signup failed:', error.message || error)
     }
   }
 
@@ -26,17 +29,19 @@ export default function SignUp() {
     password: string
     fieldOfStudy: string
     plansToTeach: string
-    // Add any other tutor-specific fields here
   }) => {
     try {
-      await signup(tutorData.email, tutorData.password, 'tutor', {
+      const result = await signup(tutorData.email, tutorData.password, 'tutor', {
         fieldOfStudy: tutorData.fieldOfStudy,
         plansToTeach: tutorData.plansToTeach,
         approvalStatus: 'pending'
       })
+      if (result.error) {
+        throw result.error
+      }
       router.push('/tutor-approval')
-    } catch (error) {
-      console.error('Tutor signup failed:', error)
+    } catch (error: any) {
+      console.error('Tutor signup failed:', error.message || error)
     }
   }
 
